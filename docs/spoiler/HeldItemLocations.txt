@@ -1,19 +1,19 @@
 AMULET_COIN     -   Goldenrod Basement 1F, wild Meowth
 BERSERK_GENE    -   Celadon Cave, wild Mewtwo
 BLACKBELT_I     -   Fighting Dojo, Lake of Rage (Wed), wild Machoke
-BLACKGLASSES    -   Dark Cave (Blackthorn), wild Larvitar
+BLACKGLASSES    -   Dark Cave (Blackthorn), Celadon GC Larvitar
 BRIGHTPOWDER    -   Ruins of Alph (Ho-Oh (Entei) Item Room)
 CHARCOAL        -   Charcoal Kiln Apprentice, Azalea Mart, wild fire starters, Magmar
 CLEANSE_TAG     -   Route 5 Cleanse Tag house (RBY Daycare)
 DRAGON_FANG     -   Dragon's Den B1F
-DRAGON_SCALE    -   Mt. Mortar 2F, wild dragon pokemon
+DRAGON_SCALE    -   Mt. Mortar 2F, wild dragon pokemon, GC Prize Dratini
 EVERSTONE       -   Prof.Elm, wild Geodude, Bill's Grandpa
 EXP.SHARE       -   Given by Oak at Mr. Pokemon's house
 FOCUS_BAND      -   Fighting Dojo, Kiyo's gift Tyrogue
 HARD_STONE      -   Route 36 (Thur), wild Onix & Golem
 KINGS_ROCK      -   Ruins of Alph (Aerodactyl Item Room), SlowpokeWellB2F, wild slow* and poli*
-LEFTOVERS       -   Celadon Cafe, wild Snorlax
-LIGHT_BALL      -   wild Pikachu family
+LEFTOVERS       -   Celadon Cafe, wild Snorlax, GC Prize Wobbuffet
+LIGHT_BALL      -   wild Pikachu family, GC Prize Pikachu
 LUCKY_EGG       -   wild Chansey
 LUCKY_PUNCH     -   wild Chansey
 MAGNET          -   Route 37 (Sun), wild Magnemite
@@ -24,7 +24,7 @@ MYSTIC_WATER    -   Cherrygrove (after Surf), wild water starters
 NEVERMELTICE    -   Ice Path, wild Jinx
 PINK_BOW        -   Radio Tower 4F, Route 29 (Tue), wild Snubbull/Granbull
 POISON_BARB     -   Bug Catching Contest, Ilex Forest (Hidden), Route 32 (Fri), wild Beedrill
-POLKADOT_BOW    -   Tiffany rematch, wild Jigglypuff
+POLKADOT_BOW    -   Tiffany rematch, wild Jigglypuff, GC Prize Porygon
 QUICK_CLAW      -   National Park, wild Sneasel
 SCOPE_LENS      -   Given by Mr. Pokemon for Red Scale
 SHARP_BEAK      -   Route 40 (Mon), wild Dodrio, Fearow
@@ -33,5 +33,5 @@ SMOKE_BALL      -   Goldenrod Underground, Mahogany shop
 SOFT_SAND       -   Route 34, wild Sandslash & Dugtrio
 SPELL_TAG       -   Blackthorn Cuty (Sat), wild Misdreavus
 STICK           -   wild Farfetch'd
-TWISTEDSPOON    -   Ruins of Alph, Route 36 (both hidden), wild Kadabra, Mr. Mime
+TWISTEDSPOON    -   Ruins of Alph, Route 36 (both hidden), wild Kadabra, Mr. Mime, GC Prize Abra
 THICK_CLUB      -   wild Cubone, Marowak

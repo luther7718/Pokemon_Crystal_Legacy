@@ -189,7 +189,8 @@ SlotsLoop:
 	ld [wCurSpriteOAMAddr], a
 	callfar DoNextFrameForFirst16Sprites
 	call .PrintCoinsAndPayout
-	call .Stubbed_AlternateMatchingSevensPalette
+;	call .AlternateMatchingSevensPalette
+;	call DebugPrintSlotBias
 	call DelayFrame
 	and a
 	ret
@@ -198,9 +199,7 @@ SlotsLoop:
 	scf
 	ret
 
-.Stubbed_AlternateMatchingSevensPalette:
-; dummied out
-	ret
+.AlternateMatchingSevensPalette:
 	ld a, [wReel1ReelAction]
 	and a
 	ret nz
@@ -251,11 +250,12 @@ DebugPrintSlotBias: ; unreferenced
 	ld [hl], a
 	ret
 
-AnimateSlotReelIcons: ; unreferenced
-; This animation was present in pokegold-spaceworld.
-	ld hl, wUnusedSlotReelIconDelay
+AnimateSlotReelIcons: ; Now referenced in SlotsAction_PayoutAnim
+;	ld hl, wUnusedSlotReelIconDelay
+;	ld a, [hl]
+;	inc [hl]
+	ld hl, wSlotsDelay ; Using this timer instead to sync with get coin sfx
 	ld a, [hl]
-	inc [hl]
 	and $7
 	ret nz
 	ld hl, wVirtualOAMSprite16TileID
@@ -470,6 +470,9 @@ SlotsAction_PayoutAnim:
 	ld d, a
 	or [hl]
 	jr z, .done
+	push hl
+	call AnimateSlotReelIcons
+	pop hl
 	ld e, [hl]
 	dec de
 	ld [hl], e
@@ -1661,21 +1664,21 @@ Slots_InitBias:
 	ret
 
 .Normal:
-	db   1 percent - 1, SLOTS_SEVEN
-	db   1 percent + 1, SLOTS_POKEBALL
-	db   4 percent,     SLOTS_STARYU
-	db   8 percent,     SLOTS_SQUIRTLE
-	db  16 percent,     SLOTS_PIKACHU
-	db  19 percent,     SLOTS_CHERRY
+	db   1 percent,     SLOTS_SEVEN
+	db   1 percent,     SLOTS_POKEBALL
+	db   2 percent,     SLOTS_STARYU
+	db   4 percent,     SLOTS_SQUIRTLE
+	db   8 percent,     SLOTS_PIKACHU
+	db  16 percent,     SLOTS_CHERRY
 	db 100 percent,     SLOTS_NO_BIAS
 
 .Lucky:
-	db   1 percent,     SLOTS_SEVEN
-	db   1 percent + 1, SLOTS_POKEBALL
-	db   3 percent + 1, SLOTS_STARYU
-	db   6 percent + 1, SLOTS_SQUIRTLE
-	db  12 percent,     SLOTS_PIKACHU
-	db  31 percent + 1, SLOTS_CHERRY
+	db   2 percent,     SLOTS_SEVEN
+	db   2 percent,     SLOTS_POKEBALL
+	db   4 percent,     SLOTS_STARYU
+	db   8 percent,     SLOTS_SQUIRTLE
+	db  16 percent,     SLOTS_PIKACHU
+	db  32 percent,     SLOTS_CHERRY
 	db 100 percent,     SLOTS_NO_BIAS
 
 Slots_IlluminateBetLights:
@@ -1839,14 +1842,14 @@ Slots_GetPayout:
 	farcall StubbedTrainerRankings_AddToSlotsPayouts
 	ret
 
-.PayoutTable:
+.PayoutTable: ; Multiples of 8 to sync up with the payout animation
 	table_width 2, Slots_GetPayout.PayoutTable
-	dw 300 ; SLOTS_SEVEN
-	dw  50 ; SLOTS_POKEBALL
-	dw   6 ; SLOTS_CHERRY
-	dw   8 ; SLOTS_PIKACHU
-	dw  10 ; SLOTS_SQUIRTLE
-	dw  15 ; SLOTS_STARYU
+	dw 400 ; SLOTS_SEVEN
+	dw 200 ; SLOTS_POKEBALL
+	dw   8 ; SLOTS_CHERRY
+	dw  16 ; SLOTS_PIKACHU
+	dw  24 ; SLOTS_SQUIRTLE
+	dw  32 ; SLOTS_STARYU
 	assert_table_length NUM_SLOT_REELS
 
 .no_win
@@ -1891,12 +1894,12 @@ Slots_PayoutText:
 
 .PayoutStrings:
 	table_width 6, Slots_PayoutText.PayoutStrings
-	dbw "300@", .LinedUpSevens      ; SLOTS_SEVEN
-	dbw "50@@", .LinedUpPokeballs   ; SLOTS_POKEBALL
-	dbw "6@@@", .LinedUpMonOrCherry ; SLOTS_CHERRY
-	dbw "8@@@", .LinedUpMonOrCherry ; SLOTS_PIKACHU
-	dbw "10@@", .LinedUpMonOrCherry ; SLOTS_SQUIRTLE
-	dbw "15@@", .LinedUpMonOrCherry ; SLOTS_STARYU
+	dbw "400@", .LinedUpSevens      ; SLOTS_SEVEN
+	dbw "200@", .LinedUpPokeballs   ; SLOTS_POKEBALL
+	dbw "8@@@", .LinedUpMonOrCherry ; SLOTS_CHERRY
+	dbw "16@@", .LinedUpMonOrCherry ; SLOTS_PIKACHU
+	dbw "24@@", .LinedUpMonOrCherry ; SLOTS_SQUIRTLE
+	dbw "32@@", .LinedUpMonOrCherry ; SLOTS_STARYU
 	assert_table_length NUM_SLOT_REELS
 
 .Text_PrintPayout:
@@ -1931,24 +1934,21 @@ endr
 	call Slots_PlaySFX
 	call WaitSFX
 
-; Oddly, the rarest mode (wKeepSevenBiasChance = 1) is the one with
-; the worse odds to favor seven symbol streaks (12.5% vs 25%).
-; it's possible that either the wKeepSevenBiasChance initialization
-; or this code was intended to lead to flipped percentages.
+; Flipped these around where the rarer mode leads to longer 7 streaks
 	ld a, [wKeepSevenBiasChance]
 	and a
-	jr nz, .lower_seven_streak_odds
+	jr nz, .higher_seven_streak_odds
 	call Random
-	and %0010100
-	ret z ; 25% chance to stick with seven symbol bias
+	and %0011100
+	ret z ; 12.5% chance to stick with seven symbol bias
 	ld a, SLOTS_NO_BIAS
 	ld [wSlotBias], a
 	ret
 
-.lower_seven_streak_odds
+.higher_seven_streak_odds
 	call Random
-	and %0011100
-	ret z ; 12.5% chance to stick with seven symbol bias
+	and %0010100
+	ret z ; 25% chance to stick with seven symbol bias
 	ld a, SLOTS_NO_BIAS
 	ld [wSlotBias], a
 	ret

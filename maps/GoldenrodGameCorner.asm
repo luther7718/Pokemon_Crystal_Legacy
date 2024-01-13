@@ -1,13 +1,13 @@
-GOLDENRODGAMECORNER_TM25_COINS EQU 5500
-GOLDENRODGAMECORNER_TM14_COINS EQU 5500
-GOLDENRODGAMECORNER_TM38_COINS EQU 5500
-GOLDENRODGAMECORNER_ABRA_COINS      EQU 100
-GOLDENRODGAMECORNER_CUBONE_COINS    EQU 800
-GOLDENRODGAMECORNER_WOBBUFFET_COINS EQU 1500
+GOLDENRODGAMECORNER_TM25_COINS       EQU 3000
+GOLDENRODGAMECORNER_TM14_COINS       EQU 3000
+GOLDENRODGAMECORNER_TM38_COINS       EQU 3000
+GOLDENRODGAMECORNER_ABRA_COINS       EQU 1111
+GOLDENRODGAMECORNER_PORYGON_COINS    EQU 3333
+GOLDENRODGAMECORNER_DRATINI_COINS    EQU 5555
 
 EXPORT GOLDENRODGAMECORNER_ABRA_COINS
-EXPORT GOLDENRODGAMECORNER_CUBONE_COINS
-EXPORT GOLDENRODGAMECORNER_WOBBUFFET_COINS
+EXPORT GOLDENRODGAMECORNER_PORYGON_COINS
+EXPORT GOLDENRODGAMECORNER_DRATINI_COINS
 
 	object_const_def
 	const GOLDENRODGAMECORNER_CLERK
@@ -156,9 +156,9 @@ GoldenrodGameCornerTMVendorMenuHeader:
 .MenuData:
 	db STATICMENU_CURSOR ; flags
 	db 4 ; items
-	db "TM25    5500@"
-	db "TM14    5500@"
-	db "TM38    5500@"
+	db "TM25    {d:GOLDENRODGAMECORNER_TM25_COINS}@"
+	db "TM14    {d:GOLDENRODGAMECORNER_TM14_COINS}@"
+	db "TM38    {d:GOLDENRODGAMECORNER_TM38_COINS}@"
 	db "CANCEL@"
 
 GoldenrodGameCornerPrizeMonVendorScript:
@@ -175,8 +175,8 @@ GoldenrodGameCornerPrizeMonVendorScript:
 	verticalmenu
 	closewindow
 	ifequal 1, .Abra
-	ifequal 2, .Cubone
-	ifequal 3, .Wobbuffet
+	ifequal 2, .Porygon
+	ifequal 3, .Dratini
 	sjump GoldenrodGameCornerPrizeVendor_CancelPurchaseScript
 
 .Abra:
@@ -193,12 +193,12 @@ GoldenrodGameCornerPrizeMonVendorScript:
 	waitbutton
 	setval ABRA
 	special GameCornerPrizeMonCheckDex
-	givepoke ABRA, 5
+	givepoke ABRA, 5, TWISTEDSPOON
 	takecoins GOLDENRODGAMECORNER_ABRA_COINS
 	sjump .loop
 
-.Cubone:
-	checkcoins GOLDENRODGAMECORNER_CUBONE_COINS
+.Porygon:
+	checkcoins GOLDENRODGAMECORNER_PORYGON_COINS
 	ifequal HAVE_LESS, GoldenrodGameCornerPrizeVendor_NotEnoughCoinsScript
 	readvar VAR_PARTYCOUNT
 	ifequal PARTY_LENGTH, GoldenrodGameCornerPrizeMonVendor_NoRoomForPrizeScript
@@ -211,12 +211,12 @@ GoldenrodGameCornerPrizeMonVendorScript:
 	waitbutton
 	setval PORYGON
 	special GameCornerPrizeMonCheckDex
-	givepoke PORYGON, 15
-	takecoins GOLDENRODGAMECORNER_CUBONE_COINS
+	givepoke PORYGON, 15, POLKADOT_BOW
+	takecoins GOLDENRODGAMECORNER_PORYGON_COINS
 	sjump .loop
 
-.Wobbuffet:
-	checkcoins GOLDENRODGAMECORNER_WOBBUFFET_COINS
+.Dratini:
+	checkcoins GOLDENRODGAMECORNER_DRATINI_COINS
 	ifequal HAVE_LESS, GoldenrodGameCornerPrizeVendor_NotEnoughCoinsScript
 	readvar VAR_PARTYCOUNT
 	ifequal PARTY_LENGTH, GoldenrodGameCornerPrizeMonVendor_NoRoomForPrizeScript
@@ -229,8 +229,8 @@ GoldenrodGameCornerPrizeMonVendorScript:
 	waitbutton
 	setval DRATINI
 	special GameCornerPrizeMonCheckDex
-	givepoke DRATINI, 15
-	takecoins GOLDENRODGAMECORNER_WOBBUFFET_COINS
+	givepoke DRATINI, 15, DRAGON_SCALE
+	takecoins GOLDENRODGAMECORNER_DRATINI_COINS
 	sjump .loop
 
 .MenuHeader:
@@ -242,9 +242,9 @@ GoldenrodGameCornerPrizeMonVendorScript:
 .MenuData:
 	db STATICMENU_CURSOR ; flags
 	db 4 ; items
-	db "ABRA       100@"
-	db "PORYGON    800@"
-	db "DRATINI    1500@"
+	db "ABRA       {d:GOLDENRODGAMECORNER_ABRA_COINS}@"
+	db "PORYGON    {d:GOLDENRODGAMECORNER_PORYGON_COINS}@"
+	db "DRATINI    {d:GOLDENRODGAMECORNER_DRATINI_COINS}@"
 	db "CANCEL@"
 
 GoldenrodGameCornerPharmacistScript:
@@ -301,18 +301,19 @@ GoldenrodGameCornerPokefanM2Script:
 GoldenrodGameCornerLeftTheirDrinkScript:
 	jumptext GoldenrodGameCornerLeftTheirDrinkText
 
-GoldenrodGameCornerSlotsMachineScript:
+GoldenrodGameCornerSlotMachineScript:
 	random 6
-	ifequal 0, GoldenrodGameCornerLuckySlotsMachineScript
+	ifequal 0, GoldenrodGameCornerLuckySlotMachineScript
 	refreshscreen
 	setval FALSE
 	special SlotMachine
 	closetext
 	end
 
-GoldenrodGameCornerLuckySlotsMachineScript:
+GoldenrodGameCornerLuckySlotMachineScript:
 	refreshscreen
 	setval TRUE
+	showemote EMOTE_HAPPY, PLAYER, 30
 	special SlotMachine
 	closetext
 	end
@@ -490,24 +491,24 @@ GoldenrodGameCorner_MapEvents:
 	def_coord_events
 
 	def_bg_events
-	bg_event  6,  6, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
-	bg_event  6,  7, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
-	bg_event  6,  8, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
-	bg_event  6,  9, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
-	bg_event  6, 10, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
-	bg_event  6, 11, BGEVENT_RIGHT, GoldenrodGameCornerSlotsMachineScript
-	bg_event  7,  6, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
-	bg_event  7,  7, BGEVENT_READ, GoldenrodGameCornerLuckySlotsMachineScript
-	bg_event  7,  8, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
-	bg_event  7,  9, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
-	bg_event  7, 10, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
-	bg_event  7, 11, BGEVENT_LEFT, GoldenrodGameCornerSlotsMachineScript
-	bg_event 12,  6, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
-	bg_event 12,  7, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
-	bg_event 12,  8, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
-	bg_event 12,  9, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
-	bg_event 12, 10, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
-	bg_event 12, 11, BGEVENT_RIGHT, GoldenrodGameCornerSlotsMachineScript
+	bg_event  6,  6, BGEVENT_READ, GoldenrodGameCornerSlotMachineScript
+	bg_event  6,  7, BGEVENT_READ, GoldenrodGameCornerSlotMachineScript
+	bg_event  6,  8, BGEVENT_READ, GoldenrodGameCornerSlotMachineScript
+	bg_event  6,  9, BGEVENT_READ, GoldenrodGameCornerSlotMachineScript
+	bg_event  6, 10, BGEVENT_READ, GoldenrodGameCornerSlotMachineScript
+	bg_event  6, 11, BGEVENT_RIGHT, GoldenrodGameCornerSlotMachineScript
+	bg_event  7,  6, BGEVENT_READ, GoldenrodGameCornerSlotMachineScript
+	bg_event  7,  7, BGEVENT_READ, GoldenrodGameCornerLuckySlotMachineScript
+	bg_event  7,  8, BGEVENT_READ, GoldenrodGameCornerSlotMachineScript
+	bg_event  7,  9, BGEVENT_READ, GoldenrodGameCornerSlotMachineScript
+	bg_event  7, 10, BGEVENT_READ, GoldenrodGameCornerSlotMachineScript
+	bg_event  7, 11, BGEVENT_LEFT, GoldenrodGameCornerSlotMachineScript
+	bg_event 12,  6, BGEVENT_READ, GoldenrodGameCornerSlotMachineScript
+	bg_event 12,  7, BGEVENT_READ, GoldenrodGameCornerSlotMachineScript
+	bg_event 12,  8, BGEVENT_READ, GoldenrodGameCornerSlotMachineScript
+	bg_event 12,  9, BGEVENT_READ, GoldenrodGameCornerSlotMachineScript
+	bg_event 12, 10, BGEVENT_READ, GoldenrodGameCornerSlotMachineScript
+	bg_event 12, 11, BGEVENT_RIGHT, GoldenrodGameCornerSlotMachineScript
 	bg_event 13,  6, BGEVENT_READ, GoldenrodGameCornerCardFlipMachineScript
 	bg_event 13,  7, BGEVENT_READ, GoldenrodGameCornerCardFlipMachineScript
 	bg_event 13,  8, BGEVENT_READ, GoldenrodGameCornerCardFlipMachineScript

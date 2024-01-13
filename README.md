@@ -20,6 +20,12 @@ This project is a hack of [TheSmithPlays's](https://www.youtube.com/@smithplaysP
     * Cut trainer battle from Vanilla restored and added to Omanyte chamber, with a custom (legal) moveset
     * Cut scientist in Kabuto chamber restored as previously mentioned trainer's after-battle text
     * Minor description text restored from Vanilla and new text added in research center
+* Game Corner rework:
+    * Increased payout odds and amounts for all machines
+    * Enabled unused reel animations when paying out coins, new anim is synced to the get coin sound effect (which itself fixed in Legacy)
+    * Lucky machine now plays the ^_^ emote as in Gen 1 to make it clearer that you've picked the right machine
+    * Lucky mode is now luckier
+    * Now the Celadon lucky machine is available at Night, Goldenrod machine still available in Morning
 * Minor script changes, such as:
     * Route 29 trainer now uses previously unused text about waiting for daytime
     * Exp. Share now given by Prof. Oak instead of Mr. Pokémon
@@ -33,13 +39,6 @@ This project is a hack of [TheSmithPlays's](https://www.youtube.com/@smithplaysP
     * ~~In-game sources for all types of mail~~
     * New sources for TM's. Some are too overpowered to be available in marts
 * Battle engine fixes?
-* Slot machine minigame enhancements?
-    * Make enhancements listed in [Crystal_'s video on the subject](https://www.youtube.com/watch?v=ojq3xqfRF6I)
-    * Fix bugs related to sound playback and payout odds on lucky machines
-    * Add additional lucky machines available at Day and Night (currently only Morning)
-    * Add ^_^ animation when playing machine as in Gen 1
-    * Add hidden coin pickups around the arcade as in Gen 1
-    * Increase payout amounts and decrease prize coin amounts to make obtaining game corner prizes early less of a grind, incentivize playing slots over buying coins
 
 ## Progress:
 1. ~~New Bark Town & Route 29~~ ✅ Done!

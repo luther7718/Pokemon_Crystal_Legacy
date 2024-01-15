@@ -147,6 +147,12 @@ GoldenrodPokeCenter1FLinkReceptionistWalkToStairsFromRightDoorwayTileMovement:
 	step DOWN
 	step_end
 
+GoldenrodPokecomCenterSign:
+	jumptext GoldenrodPokecomCenterSignText
+
+GoldenrodPokecomDoorLocked:
+	jumptext GoldenrodPokecomCenterLockedText
+
 GoldenrodPokecomCenterWelcomeToTradeCornerText: ; unreferenced
 	text "Hello! Welcome to"
 	line "#COM CENTER"
@@ -729,18 +735,15 @@ GoldenrodPokeCenter1FLinkReceptionistPleaseDoComeAgainText:
 	line "again!"
 	done
 
-GoldenrodPokecomCenterSignText: ; unreferenced
-	text "#COM CENTER"
-	line "1F INFORMATION"
+GoldenrodPokecomCenterSignText:
+	text "UNDER CONSTRUCTION"
 
-	para "Left:"
-	line "ADMINISTRATION"
+	para "Please check back"
+	line "later."
+	done
 
-	para "Center:"
-	line "TRADE CORNER"
-
-	para "Right:"
-	line "#MON NEWS"
+GoldenrodPokecomCenterLockedText:
+	text "It's locked…"
 	done
 
 GoldenrodPokecomCenterNewsMachineNotYetText: ; unreferenced
@@ -803,20 +806,21 @@ GoldenrodPokecenter1F_MapEvents:
 	db 0, 0 ; filler
 
 	def_warp_events
-	warp_event  3,  7, GOLDENROD_CITY, 15
-	warp_event  4,  7, GOLDENROD_CITY, 15
-	warp_event  0,  6, POKECOM_CENTER_ADMIN_OFFICE_MOBILE, 1
-	warp_event  0,  7, POKECENTER_2F, 1
+	warp_event  6,  9, GOLDENROD_CITY, 15
+	warp_event  7,  9, GOLDENROD_CITY, 15
+	warp_event  0,  0, POKECOM_CENTER_ADMIN_OFFICE_MOBILE, 1
+	warp_event  0,  9, POKECENTER_2F, 1
 
 	def_coord_events
-	coord_event  3,  7, SCENE_DEFAULT, GoldenrodPokecenter1F_GSBallSceneLeft
-	coord_event  4,  7, SCENE_DEFAULT, GoldenrodPokecenter1F_GSBallSceneRight
+	coord_event  6,  9, SCENE_DEFAULT, GoldenrodPokecenter1F_GSBallSceneLeft
+	coord_event  7,  9, SCENE_DEFAULT, GoldenrodPokecenter1F_GSBallSceneRight
 
 	def_bg_events
+	bg_event  1,  0, BGEVENT_READ, GoldenrodPokecomCenterSign
+	bg_event  0,  0, BGEVENT_READ, GoldenrodPokecomDoorLocked
 
 	def_object_events
-	object_event  3,  1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodPokecenter1FNurseScript, -1
-	object_event 16,  8, SPRITE_LINK_RECEPTIONIST, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, ObjectEvent, -1
-	object_event  6,  1, SPRITE_GAMEBOY_KID, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, GoldenrodPokecenter1FGameboyKidScript, -1
-	object_event  1,  4, SPRITE_LASS, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodPokecenter1FLassScript, -1
-	object_event  7,  5, SPRITE_POKEFAN_F, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, GoldenrodPokecenter1FPokefanF, -1
+	object_event  7,  1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodPokecenter1FNurseScript, -1
+	object_event 11,  6, SPRITE_GAMEBOY_KID, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, GoldenrodPokecenter1FGameboyKidScript, -1
+	object_event  3,  5, SPRITE_LASS, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodPokecenter1FLassScript, -1
+	object_event  9,  3, SPRITE_POKEFAN_F, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, GoldenrodPokecenter1FPokefanF, -1

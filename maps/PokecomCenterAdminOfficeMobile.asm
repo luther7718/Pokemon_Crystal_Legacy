@@ -55,9 +55,9 @@ PokecomCenterAdminOfficeMobileComputer1:
 .MenuData:
 	db STATICMENU_CURSOR ; flags
 	db 3 ; items
-	db "#　つうしん　クラブ@" ; # COM CLUB
-	db "モバイルセンター@" ; MOBILE CENTER
-	db "やめる@" ; QUIT
+	db "COM CLUB@" ; # COM CLUB
+	db "MOBILE CENTER@" ; MOBILE CENTER
+	db "QUIT@" ; QUIT
 
 PokecomCenterAdminOfficeMobileComputer2:
 	opentext
@@ -97,12 +97,16 @@ PokecomCenterAdminOfficeMobileComputer2:
 .MenuData:
 	db STATICMENU_CURSOR ; flags
 	db 3 ; items
-	db "でんわ<WO>つかうとき@" ; Use phone
-	db "でんわ<GA>つながらないとき@" ; Don't use phone
-	db "やめる@" ; QUIT
+	db "Use phone@" ; Use phone
+	db "Don't use phone@" ; Don't use phone
+	db "QUIT@" ; QUIT
 
 PokecomCenterAdminOfficeMobileComputer3:
-	jumptext PokecomCenterAdminOfficeMobileComputer3Text
+;	jumptext PokecomCenterAdminOfficeMobileComputer3Text
+	refreshscreen
+	special UnusedMemoryGame
+	closetext
+	end
 
 PokecomCenterAdminOfficeMobileScientist1Text:
 	text "#COM CENTER and"
@@ -264,17 +268,17 @@ PokecomCenterAdminOfficeMobile_MapEvents:
 	db 0, 0 ; filler
 
 	def_warp_events
-	warp_event  0, 31, GOLDENROD_POKECENTER_1F, 3
-	warp_event  1, 31, GOLDENROD_POKECENTER_1F, 3
+	warp_event  0,  7, GOLDENROD_POKECENTER_1F, 3
+	warp_event  1,  7, GOLDENROD_POKECENTER_1F, 3
 
 	def_coord_events
 
 	def_bg_events
-	bg_event  6, 26, BGEVENT_UP, PokecomCenterAdminOfficeMobileComputer1
-	bg_event  6, 28, BGEVENT_UP, PokecomCenterAdminOfficeMobileComputer2
-	bg_event  3, 26, BGEVENT_UP, PokecomCenterAdminOfficeMobileComputer3
+	bg_event  6,  2, BGEVENT_UP, PokecomCenterAdminOfficeMobileComputer1
+	bg_event  6,  4, BGEVENT_UP, PokecomCenterAdminOfficeMobileComputer2
+	bg_event  3,  2, BGEVENT_UP, PokecomCenterAdminOfficeMobileComputer3
 
 	def_object_events
-	object_event  4, 28, SPRITE_SCIENTIST, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, PokecomCenterAdminOfficeMobileScientist1Script, -1
-	object_event  7, 27, SPRITE_SCIENTIST, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, PokecomCenterAdminOfficeMobileScientist2Script, -1
-	object_event  7, 29, SPRITE_SCIENTIST, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, PokecomCenterAdminOfficeMobileScientist3Script, -1
+	object_event  4,  4, SPRITE_SCIENTIST, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, PokecomCenterAdminOfficeMobileScientist1Script, -1
+	object_event  7,  3, SPRITE_SCIENTIST, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, PokecomCenterAdminOfficeMobileScientist2Script, -1
+	object_event  7,  5, SPRITE_SCIENTIST, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, PokecomCenterAdminOfficeMobileScientist3Script, -1

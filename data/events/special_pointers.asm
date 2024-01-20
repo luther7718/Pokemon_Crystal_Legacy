@@ -87,6 +87,7 @@ SpecialsPointers::
 	add_special SelectRandomBugContestContestants
 	add_special ActivateFishingSwarm
 	add_special ToggleMaptileDecorations
+	add_special CoverTilesWithCarpet
 	add_special ToggleDecorationsVisibility
 	add_special GiveShuckle
 	add_special ReturnShuckie

@@ -10,6 +10,7 @@ PlayersHouse2F_MapScripts:
 	def_callbacks
 	callback MAPCALLBACK_NEWMAP, .InitializeRoom
 	callback MAPCALLBACK_TILES, .SetUpTileDecorations
+	callback MAPCALLBACK_GRAPHICS, .RenderCarpet
 
 .DummyScene: ; unreferenced
 	end
@@ -29,7 +30,9 @@ PlayersHouse2F_MapScripts:
 	special ToggleMaptileDecorations
 	endcallback
 
-	db 0, 0, 0 ; unused
+.RenderCarpet:
+	special CoverTilesWithCarpet
+	endcallback
 
 PlayersHouseDoll1Script::
 	describedecoration DECODESC_LEFT_DOLL

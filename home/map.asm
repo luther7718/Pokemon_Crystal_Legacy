@@ -1390,6 +1390,11 @@ LoadTilesetGFX::
 .skip_roof
 	xor a
 	ldh [hTileAnimFrame], a
+	ld [wCarpetTile], a
+	ld [wFloorTile], a
+
+	ld a, MAPCALLBACK_GRAPHICS
+	call RunMapCallback
 	ret
 
 BufferScreen::

@@ -1440,7 +1440,11 @@ wEnemyHPPal:: db
 wHPPals:: ds PARTY_LENGTH
 wCurHPPal:: db
 
-	ds 7
+	ds 4
+
+wCarpetTile:: db
+wFloorTile:: db
+wCoveredTile:: db
 
 wSGBPals:: ds 48
 

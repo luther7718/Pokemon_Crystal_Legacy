@@ -682,9 +682,9 @@ PokefanmBrandonBeatenText:
 	done
 
 PokefanmBrandonAfterText:
-	text "My #MON came back"
-	line "from DAY-CARE with"
-	cont "new moves."
+	text "My #MON came"
+	line "back from DAY-CARE"
+	cont "with new moves."
 
 	para "That confounded me"
 	line "to no end!"
